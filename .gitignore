@@ -3,3 +3,4 @@
 build
 eggs
 *.pyc
+*.sw[po]

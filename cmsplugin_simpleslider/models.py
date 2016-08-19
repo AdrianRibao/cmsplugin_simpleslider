@@ -77,6 +77,8 @@ class Image(Sortable):
         blank=True,
     )
 
+    link = models.URLField(_('link'), blank=True)
+
     def __str__(self):
         if self.caption_text:
             return self.caption_text

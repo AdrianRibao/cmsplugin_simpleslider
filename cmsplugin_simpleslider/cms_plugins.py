@@ -29,7 +29,8 @@ class SliderPlugin(CMSPluginBase, SortableAdmin):
     def render(self, context, instance, placeholder):
         images = instance.images.all()
         context.update({
-            'images': images
+            'slider': instance,
+            'images': images,
         })
         context["dots"] = instance.dots
         context["fade"] = instance.fade

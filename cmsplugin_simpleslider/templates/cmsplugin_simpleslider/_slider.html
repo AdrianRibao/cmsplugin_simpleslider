@@ -5,15 +5,17 @@
 {% addtoblock "css" %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL  }}cmsplugin_simpleslider/css/style.css"/>{% endaddtoblock "css" %}
 
 <div id="slider-wrapper">
-  <div class="image-slider">
+  <div class="image-slider-{{ slider.name|slugify }}">
     {% for image in images %}
     <div class="single-image">
       {% thumbnail image.image options.size crop=options.crop upscale=options.upscale as thumb %}
+      {% if image.link %}<a href="{{ image.link }}">{% endif %}
       <img data-lazy="{{thumb.url}}" class="img-responsive">
       {% if image.caption_text %}
         <div class="slider-caption-text">
           {{image.caption_text|linebreaks}}
         </div>
+      {% if image.link %}</a>{% endif %}
       {% endif %}
     </div>
     {% endfor %}
@@ -23,7 +25,7 @@
 {% addtoblock "js" %}
 <script type="text/javascript">
   $(document).ready(function(){
-    $('.image-slider').slick({
+    $('.image-slider-{{ slider.name|slugify }}').slick({
       lazyLoad: 'ondemand',
       autoplay: {{autoplay|yesno:"true,false"}},
       dots: {{dots|yesno:"true,false"}},
