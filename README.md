@@ -47,4 +47,6 @@ to ``settings.py``.
 
   to ``MIGRATION_MODULES``
 
-* sync the database
+* migrate the database
+
+Note that [slick](http://kenwheeler.github.io/slick/) must be installed and configured in your site. This plugin does not provide it.
