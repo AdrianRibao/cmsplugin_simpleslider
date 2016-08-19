@@ -23,11 +23,13 @@
   $(document).ready(function(){
     $('.image-slider-{{ slider.name|slugify }}').slick({
       lazyLoad: 'ondemand',
+      slidesToShow: {{ slider.slides_to_show }},
+      slidesToScroll: {{ slider.slides_to_scroll }},
       autoplay: {{autoplay|yesno:"true,false"}},
       dots: {{dots|yesno:"true,false"}},
+      infinite: {{slider.infinite|yesno:"true,false"}}{% if fade %},
       fade: {{fade|yesno:"true,false"}},
-      {% if fade %}
-      cssEase: 'linear',
+      cssEase: 'linear'
       {% endif %}
     });
   });

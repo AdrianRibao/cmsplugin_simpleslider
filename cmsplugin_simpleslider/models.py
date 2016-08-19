@@ -33,6 +33,16 @@ class Slider(CMSPlugin, SortableMixin):
         on_delete=models.SET_NULL,
         blank=True, null=True
     )
+    slides_to_show = models.PositiveSmallIntegerField(
+        _('Slides to show'),
+        default=1
+    )
+    slides_to_scroll = models.PositiveSmallIntegerField(
+        _('Slides to scroll'),
+        default=1
+    )
+    infinite = models.BooleanField(_('Infinite'), default=False)
+
     order = models.PositiveIntegerField(default=0, editable=False,
                                         db_index=True)
 
