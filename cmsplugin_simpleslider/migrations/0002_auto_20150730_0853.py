@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 import django.db.models.deletion
 
+from cmsplugin_simpleslider.models import thumbnail_model
+
 
 class Migration(migrations.Migration):
 
@@ -21,7 +23,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='slider',
             name='image_options',
-            field=models.ForeignKey(related_name='cmsplugin_simpleslider_image_options', on_delete=django.db.models.deletion.SET_NULL, verbose_name='image size', blank=True, to='cmsplugin_filer_image.ThumbnailOption', null=True),
+            field=models.ForeignKey(related_name='cmsplugin_simpleslider_image_options', on_delete=django.db.models.deletion.SET_NULL, verbose_name='image size', blank=True, to=thumbnail_model, null=True),
             preserve_default=True,
         ),
     ]

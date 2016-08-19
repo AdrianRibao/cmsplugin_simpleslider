@@ -5,6 +5,8 @@ from django.db import models, migrations
 import filer.fields.image
 import django.db.models.deletion
 
+from cmsplugin_simpleslider.models import thumbnail_model
+
 
 class Migration(migrations.Migration):
 
@@ -39,7 +41,7 @@ class Migration(migrations.Migration):
                 ('dots', models.BooleanField(default=False, verbose_name='dots')),
                 ('fade', models.BooleanField(default=False, verbose_name='fade')),
                 ('autoplay', models.BooleanField(default=True, verbose_name='autoplay')),
-                ('image_options', models.ForeignKey(related_name='djangocms_blog_post_thumbnail', on_delete=django.db.models.deletion.SET_NULL, verbose_name='image size', blank=True, to='cmsplugin_filer_image.ThumbnailOption', null=True)),
+                ('image_options', models.ForeignKey(related_name='djangocms_blog_post_thumbnail', on_delete=django.db.models.deletion.SET_NULL, verbose_name='image size', blank=True, to=thumbnail_model, null=True)),
             ],
             options={
                 'ordering': ['order'],

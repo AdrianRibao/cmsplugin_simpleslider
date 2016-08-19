@@ -7,7 +7,12 @@ from cms.models import CMSPlugin
 
 from filer.fields.image import FilerImageField
 
-from cmsplugin_filer_image.models import ThumbnailOption
+try:
+    from filer.models import ThumbnailOption
+    thumbnail_model = 'filer.ThumbnailOption'
+except ImportError:
+    from cmsplugin_filer_image.models import ThumbnailOption
+    thumbnail_model = 'cmsplugin_filer_image.ThumbnailOption'
 
 from adminsortable.models import Sortable
 
@@ -24,7 +29,7 @@ class Slider(CMSPlugin, Sortable):
     fade = models.BooleanField(_('fade'), default=False)
     autoplay = models.BooleanField(_('autoplay'), default=True)
     image_options = models.ForeignKey(
-        ThumbnailOption,
+        thumbnail_model,
         verbose_name=_('image size'),
         related_name='cmsplugin_simpleslider_image_options',
         on_delete=models.SET_NULL,
