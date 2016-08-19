@@ -14,15 +14,13 @@ except ImportError:
     from cmsplugin_filer_image.models import ThumbnailOption
     thumbnail_model = 'cmsplugin_filer_image.ThumbnailOption'
 
-from adminsortable.models import Sortable
+from adminsortable.models import SortableMixin
 
 from .settings import get_settings
 
 
 @python_2_unicode_compatible
-class Slider(CMSPlugin, Sortable):
-    class Meta(Sortable.Meta):
-        pass
+class Slider(CMSPlugin, SortableMixin):
 
     name = models.CharField(_('name'), max_length=50, blank=True, null=True)
     dots = models.BooleanField(_('dots'), default=False)
@@ -35,6 +33,11 @@ class Slider(CMSPlugin, Sortable):
         on_delete=models.SET_NULL,
         blank=True, null=True
     )
+    order = models.PositiveIntegerField(default=0, editable=False,
+                                        db_index=True)
+
+    class Meta:
+        ordering = ['order']
 
     def copy_relations(self, oldinstance):
         for image in oldinstance.images.all():
@@ -56,11 +59,7 @@ class Slider(CMSPlugin, Sortable):
 
 
 @python_2_unicode_compatible
-class Image(Sortable):
-
-    class Meta(Sortable.Meta):
-        verbose_name_plural = _('images')
-        pass
+class Image(SortableMixin):
 
     slider = models.ForeignKey(
         Slider,
@@ -78,6 +77,13 @@ class Image(Sortable):
     )
 
     link = models.URLField(_('link'), blank=True)
+
+    order = models.PositiveIntegerField(default=0, editable=False,
+                                        db_index=True)
+
+    class Meta:
+        verbose_name_plural = _('images')
+        ordering = ['order']
 
     def __str__(self):
         if self.caption_text:

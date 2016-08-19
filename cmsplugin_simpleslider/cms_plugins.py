@@ -14,6 +14,7 @@ from .models import (
 )
 
 
+#  class ImageInline(admin.StackedInline):
 class ImageInline(SortableStackedInline):
     model = Image
     extra = 1
@@ -27,6 +28,9 @@ class SliderPlugin(CMSPluginBase, SortableAdmin):
     inlines = [ImageInline, ]
 
     def render(self, context, instance, placeholder):
+        context = super(SliderPlugin, self).render(
+            context, instance, placeholder
+        )
         images = instance.images.all()
         context.update({
             'slider': instance,
